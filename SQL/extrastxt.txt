@@ -1,0 +1,22 @@
+use LocadoraVeiculos;
+
+-- Numero 2
+select descricao, datamanutencao, custo from manutencao;
+
+-- Numero 3
+select sum(valorTotal) from Pagamento where estado = 'Pago';
+
+-- Numero 4
+select veiculo.modelo, veiculo.marca, count(locacaoveiculo.idlocacao) as alugueis_totais
+from veiculo join locacaoveiculo on veiculo.idveiculo = locacaoveiculo.idveiculo
+group by veiculo.idveiculo
+order by alugueis_totais desc;
+
+-- Numero 5
+select cliente.nome, sum(pagamento.valortotal) as divida
+from locacao
+join pagamento on locacao.idpagamento = pagamento.idpagamento
+join cliente on locacao.idcliente = cliente.idcliente
+where estado = 'Pendente'
+group by cliente.idcliente 
+order by cliente.nome;
